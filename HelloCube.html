@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>My first three.js app - HelloCube</title>
+        <style>
+            body {margin: 0;}
+        </style>
+    </head>
+
+    <body>
+        <script src="js/three.js"> </script>
+        <script>
+            // create a scene object
+            const scene = new THREE.Scene();
+            // setup camera -- multiple other options available
+            // FOV, aspect ratio, near plane, far plane
+            const camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000);
+            // create renderer object
+            const renderer = new THREE.WebGLRenderer();
+            // set the size of render
+            renderer.setSize( window.innerWidth/2, window.innerHeight/2);
+            // adding render to HTML element
+            document.body.appendChild(renderer.domElement);
+
+            // creating geometry of cube
+            const geometry = new THREE.BoxGeometry( 1,1,1 );
+            // define material to color the cube
+            const material = new THREE.MeshBasicMaterial( { color : 0x00ff00 } )
+            // define cube object
+            const cube = new THREE.Mesh( geometry,material );
+            // add cube to scene -- default location at origin ( 0,0,0 )
+            scene.add( cube );
+
+            // set camera position
+            camera.position.z = 5;
+
+            // rendering the scene
+            function animate() {
+                requestAnimationFrame( animate );
+                // rotate cube
+                cube.rotation.x += 0.01;
+                cube.rotation.y += 0.01;
+                // render final scene
+                renderer.render( scene, camera );
+            }
+            animate();
+        </script>
+    </body>
+</html>
